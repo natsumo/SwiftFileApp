@@ -60,13 +60,18 @@
 
 ### 5. 動作確認
 * lightningケーブルでiPhoneをMacにつなぎます
- * 実機ビルドが初めての場合は[こちら](http://qiita.com/natsumo/items/3f1dd0e7f5471bd4b7d9)をご覧頂実機ビルドの準備をお願いします
+ * 実機ビルドが初めての場合は[こちら](http://qiita.com/natsumo/items/3f1dd0e7f5471bd4b7d9)をご覧いただき、実機ビルドの準備をお願いします
 * Xcode画面で左上で、接続したiPhoneを選び、実行ボタン（さんかくの再生マーク）をクリックします
 
 ![画像1](/readme-img/001.png)
 
 * アプリが起動したら、①「カメラ」ボタンをタップして、写真を撮影します
-* 次に、②「mobile backendに保存」ボタンをタップします→クラウドに保存されます！
+* 次に、②「mobile backendに保存」ボタンをタップします
+
+![画像13](/readme-img/013.png)
+
+* 写真に名前を付けます
+* 「OK」をタップすると写真がクラウドに保存されます
  * 保存に失敗した場合は画面にエラーコードが表示されます
  * 万が一エラーが発生した場合は、[こちら](http://mb.cloud.nifty.com/doc/current/rest/common/error.html)よりエラー内容を確認いただけます
 
