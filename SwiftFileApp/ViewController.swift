@@ -63,6 +63,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     // 「mobile backendに保存」ボタン押下時の処理
     @IBAction func saveImage(sender: AnyObject) {
         let image: UIImage! = cameraView.image
+        // 画像がnilのとき
+        if image == nil {
+            print("画像がありません")
+            self.label.text = "画像がありません"
+            
+            return
+            
+        }
+        
         // 画像をリサイズする
         let imageW : Int = Int(image.size.width*0.2)
         let imageH : Int = Int(image.size.height*0.2)
