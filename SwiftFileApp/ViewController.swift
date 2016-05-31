@@ -20,7 +20,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         self.label.text = "カメラで写真を撮りましょう！"
     }
     
-    // カメラボタン押下時の処理
+    // 「カメラ」ボタン押下時の処理
     @IBAction func cameraStart(sender: AnyObject) {
 
         let sourceType: UIImagePickerControllerSourceType = UIImagePickerControllerSourceType.Camera
@@ -60,7 +60,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         
     }
     
-    // mobile backendの画像を保存
+    // 「mobile backendに保存」ボタン押下時の処理
     @IBAction func saveImage(sender: AnyObject) {
         let image: UIImage! = cameraView.image
         // 画像をリサイズする
