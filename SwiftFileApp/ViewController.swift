@@ -79,9 +79,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         
         // ファイル名を決めるアラートを表示
         let alert = UIAlertController(title: "保存します", message: "ファイル名を指定してください", preferredStyle: .Alert)
-        
-        // OK押下時の処理
-        let saveAction = UIAlertAction(title: "OK", style: .Default) { (action: UIAlertAction!) -> Void in
+        // UIAlertControllerにtextFieldを追加
+        alert.addTextFieldWithConfigurationHandler { (textField: UITextField!) -> Void in
+        }
+        // アラートのOK押下時の処理
+        alert.addAction(UIAlertAction(title: "OK", style: .Default) { (action: UIAlertAction!) -> Void in
             // 入力したテキストをファイル名に指定
             let fileName = alert.textFields![0].text! + ".png"
             
@@ -113,20 +115,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
                 self.label.text = "保存中：\(int)％"
                 
             })
-        }
+        })
         
-        // Cancel押下時の処理
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action: UIAlertAction!) -> Void in
+        // アラートのCancel押下時の処理
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default) { (action: UIAlertAction!) -> Void in
             print("保存がキャンセルされました")
             self.label.text = "保存がキャンセルされました"
             
-        }
+        })
         
-        // UIAlertControllerにtextFieldを追加
-        alert.addTextFieldWithConfigurationHandler { (textField: UITextField!) -> Void in
-        }
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
         presentViewController(alert, animated: true, completion: nil)
         
     }
