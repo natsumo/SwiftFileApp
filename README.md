@@ -250,7 +250,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
 
 
 ## 参考
-* ニフティクラウドmobile backend の[ドキュメント（ファイルストア）](http://mb.cloud.nifty.com/doc/current/user/basic_usage_ios.html)をSwift版に書き換えたドキュメントをご用意していますので、ご活用ください
+* ニフティクラウドmobile backend の[ドキュメント（ファイルストア）](http://mb.cloud.nifty.com/doc/current/filestore/basic_usage_ios.html)をSwift版に書き換えたドキュメントをご用意していますので、ご活用ください
  * [Swiftでファイルをサーバーに保存しよう！](http://qiita.com/natsumo/items/974247b3b27ec0880dc6)
 * 同じ内容の【Objective-C】版もご用意しています
  * https://github.com/natsumo/ObjcFileApp
