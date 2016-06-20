@@ -250,7 +250,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
 }
 ```
 
-* 【注意】[ニフティクラウドmobile backend](http://mb.cloud.nifty.com/)のBasicプラン（無料）では、1度にアップロードできるファイルの上限が５GBとなっています。iPhoneで撮影した写真はその制限を超えてしまうため、圧縮して保存を行っています。（有償プランの場合上限は異なります。詳しくは[こちら](http://mb.cloud.nifty.com/price.htm)）
+* 【注意】[ニフティクラウドmobile backend](http://mb.cloud.nifty.com/)のBasicプラン（無料）では、1度にアップロードできるファイルの上限が５MBとなっています。iPhoneで撮影した写真はその制限を超えてしまうため、圧縮して保存を行っています。（有償プランの場合上限は異なります。詳しくは[こちら](http://mb.cloud.nifty.com/price.htm)）
 
 
 ## 参考
