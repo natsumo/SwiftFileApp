@@ -37,15 +37,19 @@
 
 ![画像5](/readme-img/005.png)
 
-### 2. [GitHub](https://github.com/natsumo/SwiftFileApp.git)からサンプルプロジェクトのダウンロード
-
-* この画面([GitHub](https://github.com/natsumo/SwiftFileApp.git))の![画像10](/readme-img/010.png)ボタンをクリックし、さらに![画像11](/readme-img/011.PNG)ボタンをクリックしてサンプルプロジェクトをMacにダウンロードします
+#### 2. GitHubからサンプルプロジェクトのダウンロード
+* 下記リンクをクリックしてプロジェクトをダウンロードをMacにダウンロードします
+ * __[SwiftFileApp](https://github.com/natsumo/SwiftFileApp/archive/master.zip)__
 
 ### 3. Xcodeでアプリを起動
+* ダウンロードしたフォルダを開き、「SwiftFileApp.xcworkspace」をダブルクリックしてXcode開きます(白い方です)
 
-* ダウンロードしたフォルダを開き、![画像09](/readme-img/009.png)をダブルクリックしてXcode開きます　![画像08](/readme-img/008.png)
+![画像09](/readme-img/009.png)
 
 ![画像6](/readme-img/006.png)
+
+* 「SwiftFileApp.xcodeproj」（青い方）ではないので注意してください！
+![画像08](/readme-img/008.png)
 
 ### 4. APIキーの設定
 
@@ -112,7 +116,7 @@ import UIKit
 import NCMB
 
 class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
+
     @IBOutlet weak var cameraView: UIImageView!
     @IBOutlet weak var label: UILabel!
 
@@ -121,7 +125,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         // Do any additional setup after loading the view, typically from a nib.
         self.label.text = "カメラで写真を撮りましょう！"
     }
-    
+
     // 「カメラ」ボタン押下時の処理
     @IBAction func cameraStart(sender: AnyObject) {
 
@@ -132,36 +136,36 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             cameraPicker.sourceType = sourceType
             cameraPicker.delegate = self
             self.presentViewController(cameraPicker, animated: true, completion: nil)
-            
+
         } else {
             print("エラーが発生しました")
             self.label.text = "エラーが発生しました"
-            
+
         }
     }
-    
+
     // 撮影が終了したときに呼ばれる
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             cameraView.contentMode = .ScaleAspectFit
             cameraView.image = pickedImage
             self.label.text = "撮った写真をクラウドに保存しよう！"
-            
+
         }
-        
+
         // 閉じる処理
         picker.dismissViewControllerAnimated(true, completion: nil)
-        
+
     }
-    
+
     // 撮影がキャンセルされた時に呼ばれる
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         picker.dismissViewControllerAnimated(true, completion: nil)
         print("キャンセルされました")
         self.label.text = "キャンセルされました"
-        
+
     }
-    
+
     // 「mobile backendに保存」ボタン押下時の処理
     @IBAction func saveImage(sender: AnyObject) {
         let image: UIImage! = cameraView.image
@@ -169,16 +173,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         if image == nil {
             print("画像がありません")
             self.label.text = "画像がありません"
-            
+
             return
-            
+
         }
-        
+
         // 画像をリサイズする
         let imageW : Int = Int(image.size.width*0.2)
         let imageH : Int = Int(image.size.height*0.2)
         let resizeImage = resize(image, width: imageW, height: imageH)
-        
+
         // ファイル名を決めるアラートを表示
         let alert = UIAlertController(title: "保存します", message: "ファイル名を指定してください", preferredStyle: .Alert)
         // UIAlertControllerにtextFieldを追加
@@ -188,48 +192,48 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         alert.addAction(UIAlertAction(title: "OK", style: .Default) { (action: UIAlertAction!) -> Void in
             // 入力したテキストをファイル名に指定
             let fileName = alert.textFields![0].text! + ".png"
-            
+
             // 画像をNSDataに変換
             let pngData = NSData(data: UIImagePNGRepresentation(resizeImage)!)
             let file = NCMBFile.fileWithName(fileName, data: pngData) as! NCMBFile
-            
+
             // ACL設定（読み書き可）
             let acl = NCMBACL()
             acl.setPublicReadAccess(true)
             acl.setPublicWriteAccess(true)
             file.ACL = acl
-            
+
             // ファイルストアへ画像のアップロード
             file.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error != nil {
                     // 保存失敗時の処理
                     print("保存に失敗しました。エラーコード：\(error.code)")
                     self.label.text = "保存に失敗しました：\(error.code)"
-                    
+
                 } else {
                     // 保存成功時の処理
                     print("保存に成功しました")
                     self.label.text = "保存に成功しました"
-                    
+
                 }
-                
+
             }, progressBlock: { (int: Int32) -> Void in
                 self.label.text = "保存中：\(int)％"
-                
+
             })
         })
-        
+
         // アラートのCancel押下時の処理
         alert.addAction(UIAlertAction(title: "Cancel", style: .Default) { (action: UIAlertAction!) -> Void in
             print("保存がキャンセルされました")
             self.label.text = "保存がキャンセルされました"
-            
+
         })
-        
+
         presentViewController(alert, animated: true, completion: nil)
-        
+
     }
-    
+
     // 画像をリサイズする処理
     func resize (image: UIImage, width: Int, height: Int) -> UIImage {
         let size: CGSize = CGSize(width: width, height: height)
@@ -237,11 +241,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         image.drawInRect(CGRectMake(0, 0, size.width, size.height))
         let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
+
         return resizeImage
-        
+
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
