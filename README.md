@@ -104,14 +104,6 @@
  * 写真をクラウドに保存する処理は以下のように記述されます
 
 ```swift
-//
-//  ViewController.swift
-//  SwiftFileApp
-//
-//  Created by Natsumo Ikeda on 2016/05/30.
-//  Copyright © 2016年 NIFTY Corporation. All rights reserved.
-//
-
 import UIKit
 import NCMB
 
